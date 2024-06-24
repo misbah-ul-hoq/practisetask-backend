@@ -35,8 +35,7 @@ async function run() {
     app.get("/arts/filter/:email", async (req, res) => {
       const email = req.params.email;
       const query = { email };
-      const cursor = await arts.find(query);
-      const results = await cursor.toArray();
+      const results = await arts.find(query).toArray();
       res.send(results);
     });
 
