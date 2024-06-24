@@ -24,6 +24,12 @@ async function run() {
       res.send(results);
     });
 
+    app.get("/arts/:id", async (req, res) => {
+      const id = req.params.id;
+      const result = await arts.findOne({ _id: new ObjectId(id) });
+      res.send(result);
+    });
+
     app.post("/arts/new", async (req, res) => {
       const newArt = req.body;
       const result = await arts.insertOne(newArt);
