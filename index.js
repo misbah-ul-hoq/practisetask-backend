@@ -15,7 +15,24 @@ const client = new MongoClient(uri);
 async function run() {
   try {
     const users = client.db("usersDB").collection("users");
+    const arts = client.db("artsDB").collection("arts");
 
+    // arts api
+
+    app.get("/arts", async (req, res) => {
+      const results = await arts.find().toArray();
+      res.send(results);
+    });
+
+    app.post("/arts/new", async (req, res) => {
+      const newArt = req.body;
+      const result = await arts.insertOne(newArt);
+      res.send(result);
+    });
+
+    // end of arts api
+
+    // users api
     app.get("/users", async (req, res) => {
       const results = await users.find().toArray();
       res.send(results);
@@ -70,6 +87,7 @@ async function run() {
       const result = await users.deleteOne(query);
       res.send(result);
     });
+    // end of users api
   } finally {
   }
 }
