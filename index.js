@@ -21,6 +21,12 @@ async function run() {
       res.send(results);
     });
 
+    app.get("/user/:email", async (req, res) => {
+      const email = req.params.email;
+      const results = await users.findOne({ email: email });
+      res.send(results);
+    });
+
     app.get("/users/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
