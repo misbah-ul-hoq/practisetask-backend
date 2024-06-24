@@ -10,10 +10,18 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@clu
 
 //"mongodb+srv://<username>:<password>@cluster0.5dbzkti.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-const client = new MongoClient(uri);
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
 
 async function run() {
   try {
+    await client.connect();
+
     const users = client.db("usersDB").collection("users");
     const arts = client.db("artsDB").collection("arts");
 
@@ -33,7 +41,8 @@ async function run() {
     app.get("/arts/:email", async (req, res) => {
       const email = req.params.email;
       console.log(email);
-      const results = await arts.find({ email: email }).toArray();
+      const cursor = await arts.find({ email: email });
+      const results = await cursor.toArray();
       res.send(results);
     });
 
