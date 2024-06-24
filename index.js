@@ -72,7 +72,7 @@ async function run() {
       res.send(result);
     });
 
-    app.delete("arts/delete/:id", async (req, res) => {
+    app.delete("/arts/delete/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await arts.deleteOne(query);
