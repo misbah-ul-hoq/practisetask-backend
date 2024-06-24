@@ -30,6 +30,12 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/arts/:email", async (req, res) => {
+      const email = req.params.email;
+      const results = await arts.find({ email: email }).toArray();
+      res.send(results);
+    });
+
     app.post("/arts/new", async (req, res) => {
       const newArt = req.body;
       const result = await arts.insertOne(newArt);
