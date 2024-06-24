@@ -20,7 +20,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
 
     const users = client.db("usersDB").collection("users");
     const arts = client.db("artsDB").collection("arts");
@@ -40,8 +40,8 @@ async function run() {
 
     app.get("/arts/:email", async (req, res) => {
       const email = req.params.email;
-      console.log(email);
-      const cursor = await arts.find({ email: email });
+      const query = { email };
+      const cursor = await arts.find(query);
       const results = await cursor.toArray();
       res.send(results);
     });
