@@ -32,6 +32,7 @@ async function run() {
 
     app.get("/arts/:email", async (req, res) => {
       const email = req.params.email;
+      console.log(email);
       const results = await arts.find({ email: email }).toArray();
       res.send(results);
     });
