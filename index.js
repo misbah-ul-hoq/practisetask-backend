@@ -32,9 +32,9 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/arts/filter/:email", async (req, res) => {
+    app.get("/my-arts/:email", async (req, res) => {
       const email = req.params.email;
-      const query = { email };
+      const query = { userEmail: email };
       const results = await arts.find(query).toArray();
       res.send(results);
     });
