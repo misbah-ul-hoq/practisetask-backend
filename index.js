@@ -45,6 +45,33 @@ async function run() {
       res.send(result);
     });
 
+    app.put("/arts/update/:id", async (req, res) => {
+      const id = req.params.id;
+      const options = { upsert: true };
+
+      const query = { _id: new ObjectId(id) };
+
+      const formData = req.body;
+
+      const updateDoc = {
+        $set: {
+          image: formData.image,
+          itemName: formData.itemName,
+          subcategoryName: formData.subcategoryName,
+          description: formData.description,
+          price: formData.price,
+          rating: formData.rating,
+          customization: formData.customization,
+          processingTime: formData.processingTime,
+          stockStatus: formData.stockStatus,
+        },
+      };
+
+      const result = await arts.updateOne(query, updateDoc, options);
+
+      res.send(result);
+    });
+
     // end of arts api
 
     // users api
