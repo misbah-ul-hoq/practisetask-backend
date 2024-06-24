@@ -32,7 +32,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/arts/:email", async (req, res) => {
+    app.get("/arts/filter/:email", async (req, res) => {
       const email = req.params.email;
       const query = { email };
       const cursor = await arts.find(query);
